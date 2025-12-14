@@ -1,0 +1,150 @@
+version: 1.2.1
+cache: true
+fileStrategy: "s3"
+
+# Registration
+registration:
+  socialLogins: []
+  allowedDomains: []
+
+# File Handling
+fileConfig:
+  # Global limit for the server (Keep this high)
+  serverFileSizeLimit: 100
+
+  # Default limits for Standard Chat (OpenAI, Anthropic, Custom)
+  endpoints:
+    default:
+      fileLimit: 20          # Allow bulk uploads (e.g. 20 papers at once)
+      fileSizeLimit: 100     # 100MB per file (Handles massive PDFs)
+      totalSizeLimit: 500    # 500MB total per message
+      supportedMimeTypes:
+        - "image/.*"                                      # All images
+        - "application/pdf"                               # PDFs
+        - "text/.*"                                       # All code/text files
+        - "application/json"                              # Data files
+        - "application/vnd.openxmlformats-officedocument.*" # Word/Excel/PPT
+
+    # Explicit override for Assistants (OpenAI Assistants API)
+    # They have stricter hard limits on the OpenAI side, so we match them here.
+    assistants:
+      fileLimit: 10
+      fileSizeLimit: 512     # OpenAI allows up to 512MB per file
+      totalSizeLimit: 1000
+      supportedMimeTypes:
+        - "image/.*"
+        - "application/pdf"
+        - "text/.*"
+        - "application/json"
+        - "application/vnd.openxmlformats-officedocument.*"
+
+
+# Web Search
+webSearch:
+  # Search Provider Configuration
+  serperApiKey: "${SERPER_API_KEY}"
+  searchProvider: "serper" # Options: "serper", "searxng"
+
+  # Scraper Configuration
+  firecrawlApiKey: "${FIRECRAWL_API_KEY}"
+  scraperProvider: "firecrawl" # Options: "firecrawl", "serper"
+
+  # Reranker Configuration
+  jinaApiKey: "${JINA_API_KEY}"
+  rerankerType: "jina" # Options: "jina", "cohere"
+
+  # General Settings
+  scraperTimeout: 7500 # Timeout in milliseconds for scraper requests (default: 7500)
+  safeSearch: 1 # Options: 0 (OFF), 1 (MODERATE - default), 2 (STRICT)
+
+# AI Endpoints
+endpoints:
+  # GLOBAL SETTINGS: Applies to OpenAI, Anthropic, Custom, etc.
+  all:
+    titleConvo: true
+    titleModel: "gpt-4o-mini" # Cheap, fast, reliable for titles
+    titleMethod: "completion" # 'completion' is usually cheaper/faster than 'functions' for simple titles
+
+  # OpenAI (Primary)
+  openai:
+    apiKey: "${OPENAI_API_KEY}"
+    models:
+      default: [
+        "gpt-5.2",
+        "gpt-5",
+        "gpt-4.1",
+        "o4-mini-deep-research",
+        "o3-mini"
+      ]
+      fetch: true
+
+  # Anthropic
+  anthropic:
+    apiKey: "${ANTHROPIC_API_KEY}"
+    models:
+      default: [
+        "claude-haiku-4-5",
+        "claude-opus-4-5"
+      ]
+
+  # Google
+  google:
+    apiKey: "${GOOGLE_API_KEY}"
+    models:
+      default: [
+        "gemini-3-pro-preview",
+        "gemini-3-pro-image-preview",
+        "gemini-2.5-pro"
+      ]
+
+  # Custom Endpoints
+  custom:
+    - name: "OpenRouter"
+      apiKey: "${OPENROUTER_API_KEY}"
+      baseURL: "https://openrouter.ai/api/v1"
+      models:
+        default: [
+          "deepseek/deepseek-r1",
+          "deepseek/deepseek-v3.1-terminus:exacto"
+        ]
+
+    # MOONSHOT AI (Kimi)
+    - name: "Moonshot"
+      apiKey: "${MOONSHOT_API_KEY}"
+      baseURL: "https://api.moonshot.ai/v1/"
+      # Moonshot works best generating its own titles, so we override the global default here
+      titleModel: "moonshot-v1-8k"
+      models:
+        default: [
+          "kimi-k2-turbo-preview",
+          "kimi-k2-thinking",
+          "kimi-latest",
+          "moonshot-v1-32k",
+          "moonshot-v1-128k"
+        ]
+
+
+    - name: "Perplexity"
+      apiKey: "${PERPLEXITY_API_KEY}"
+      baseURL: "https://api.perplexity.ai"
+      models:
+        default: [
+            "sonar-pro",
+            "sonar-reasoning-pro",
+            "sonar-deep-research"
+          ]
+        fetch: false
+
+# Custom Models
+modelSpecs:
+  enforce: false
+  prioritize: true
+  list:
+    - name: "gpt-5.2-medium"                # Internal ID for LibreChat
+      label: "GPT-5.2 (Medium Reasoning)"   # What you see in the dropdown
+      description: "Forces higher level of reasoning effort for complex tasks."
+      iconURL: "openAI"
+      preset:
+        endpoint: "openai"
+        model: "gpt-5.2"                    # <--- THE REAL API MODEL NAME
+        reasoning_effort: "medium"          # <--- The parameter override
