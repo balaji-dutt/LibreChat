@@ -141,7 +141,7 @@ endpoints:
 # Custom Models
 modelSpecs:
   enforce: false
-  prioritize: true
+  prioritize: false
   list:
     - name: "gpt-5.2-medium"                # Internal ID for LibreChat
       label: "GPT-5.2 (Medium Reasoning)"   # What you see in the dropdown
