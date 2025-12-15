@@ -1,4 +1,4 @@
-version: 1.2.1
+version: 1.3.1
 cache: true
 fileStrategy: "s3"
 
@@ -142,10 +142,15 @@ endpoints:
 modelSpecs:
   enforce: false
   prioritize: false
+  addedEndpoints:
+    - openAI
+    - google
+    - anthropic
   list:
     - name: "gpt-5.2-medium"                # Internal ID for LibreChat
       label: "GPT-5.2 (Medium Reasoning)"   # What you see in the dropdown
       description: "Forces higher level of reasoning effort for complex tasks."
+      group: "openAI"
       iconURL: "openAI"
       preset:
         endpoint: "openAI"
