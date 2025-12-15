@@ -39,6 +39,9 @@ fileConfig:
         - "application/vnd.openxmlformats-officedocument.*"
 
 
+balance:
+  enabled: false                # Disable token credit balances for users
+
 # Web Search
 webSearch:
   # Search Provider Configuration
@@ -65,37 +68,37 @@ endpoints:
     titleModel: "gpt-4o-mini" # Cheap, fast, reliable for titles
     titleMethod: "completion" # 'completion' is usually cheaper/faster than 'functions' for simple titles
 
-  # OpenAI (Primary)
-  openai:
-    apiKey: "${OPENAI_API_KEY}"
-    models:
-      default: [
-        "gpt-5.2",
-        "gpt-5",
-        "gpt-4.1",
-        "o4-mini-deep-research",
-        "o3-mini"
-      ]
-      fetch: true
+  # # OpenAI (Primary)
+  # openai:
+  #   apiKey: "${OPENAI_API_KEY}"
+  #   models:
+  #     default: [
+  #       "gpt-5.2",
+  #       "gpt-5",
+  #       "gpt-4.1",
+  #       "o4-mini-deep-research",
+  #       "o3-mini"
+  #     ]
+  #     fetch: true
 
-  # Anthropic
-  anthropic:
-    apiKey: "${ANTHROPIC_API_KEY}"
-    models:
-      default: [
-        "claude-haiku-4-5",
-        "claude-opus-4-5"
-      ]
+  # # Anthropic
+  # anthropic:
+  #   apiKey: "${ANTHROPIC_API_KEY}"
+  #   models:
+  #     default: [
+  #       "claude-haiku-4-5",
+  #       "claude-opus-4-5"
+  #     ]
 
-  # Google
-  google:
-    apiKey: "${GOOGLE_API_KEY}"
-    models:
-      default: [
-        "gemini-3-pro-preview",
-        "gemini-3-pro-image-preview",
-        "gemini-2.5-pro"
-      ]
+  # # Google
+  # google:
+  #   apiKey: "${GOOGLE_API_KEY}"
+  #   models:
+  #     default: [
+  #       "gemini-3-pro-preview",
+  #       "gemini-3-pro-image-preview",
+  #       "gemini-2.5-pro"
+  #     ]
 
   # Custom Endpoints
   custom:
@@ -145,6 +148,6 @@ modelSpecs:
       description: "Forces higher level of reasoning effort for complex tasks."
       iconURL: "openAI"
       preset:
-        endpoint: "openai"
+        endpoint: "openAI"
         model: "gpt-5.2"                    # <--- THE REAL API MODEL NAME
         reasoning_effort: "medium"          # <--- The parameter override
