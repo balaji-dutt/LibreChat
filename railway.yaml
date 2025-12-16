@@ -115,6 +115,7 @@ endpoints:
     - name: "Moonshot"
       apiKey: "${MOONSHOT_API_KEY}"
       baseURL: "https://api.moonshot.ai/v1/"
+      iconURL: "https://registry.npmmirror.com/@lobehub/icons-static-png/latest/files/light/moonshot.png"
       # Moonshot works best generating its own titles, so we override the global default here
       titleModel: "moonshot-v1-8k"
       models:
@@ -143,19 +144,89 @@ modelSpecs:
   enforce: false
   prioritize: false
   addedEndpoints:
-    - openAI
     - google
+    - openAI
     - anthropic
     - OpenRouter
     - Moonshot
     - Perplexity
   list:
+    - name: "gemini-3-pro-preview"
+      label: "Gemini 3 Pro (Preview)"
+      # group: "openAI" # No group specified to allow this to appear at the top of the model selector
+      iconURL: "google"
+      preset:
+        endpoint: "google"
+        model: "gemini-3-pro-preview"
+        web_search: true
     - name: "gpt-5.2-medium"                # Internal ID for LibreChat
       label: "GPT-5.2 (Medium Reasoning)"   # What you see in the dropdown
       description: "Forces higher level of reasoning effort for complex tasks."
-      group: "openAI"
+      group: "Quick Access"
       iconURL: "openAI"
       preset:
         endpoint: "openAI"
         model: "gpt-5.2"                    # <--- THE REAL API MODEL NAME
         reasoning_effort: "medium"          # <--- The parameter override
+        web_search: true
+    - name: "sonar-reasoning-pro"
+      label: "Perplexity Search (Reasoning)"
+      group: "Quick Access"
+      preset:
+        endpoint: "Perplexity"
+        model: "sonar-reasoning-pro"
+    - name: "gemini-3-pro-image-preview"
+      label: "Gemini 3 Pro Preview (Image Generation)"
+      description: "🍌 Pro"
+      group: "Quick Access"
+      iconURL: "google"
+      preset:
+        endpoint: "google"
+        model: "gemini-3-pro-image-preview"
+    - name: "gpt-5.2"
+      label: "GPT-5.2"
+      description: "Default Configuration (No Reasoning)"
+      group: "Quick Access"
+      iconURL: "openAI"
+      preset:
+        endpoint: "openAI"
+        model: "gpt-5.2"
+        web_search: true
+    - name: "o4-mini-deep-research"
+      label: "O4 Mini (Deep Research)"
+      group: "Quick Access"
+      iconURL: "openAI"
+      preset:
+        endpoint: "openAI"
+        model: "o4-mini-deep-research"
+        web_search: true
+    - name: "claude-haiku-4-5"
+      label: "Claude Haiku 4.5"
+      group: "Quick Access"
+      iconURL: "anthropic"
+      preset:
+        endpoint: "anthropic"
+        model: "claude-haiku-4-5"
+        web_search: true
+    - name: "claude-opus-4-5"
+      label: "Claude Opus 4.5"
+      group: "Quick Access"
+      iconURL: "anthropic"
+      preset:
+        endpoint: "anthropic"
+        model: "claude-opus-4-5"
+        web_search: true
+    - name: "deepseek-v3.1"
+      label: "Deepseek V3.1 Terminus"
+      group: "Quick Access"
+      iconURL: "https://registry.npmmirror.com/@lobehub/icons-static-png/latest/files/light/deepseek.png"
+      preset:
+        endpoint: "OpenRouter"
+        model: "deepseek/deepseek-v3.1-terminus:exacto"
+    - name: "kimi-k2-thinking"
+      label: "Kimi K2 (Thinking)"
+      group: "Quick Access"
+      iconURL: "https://registry.npmmirror.com/@lobehub/icons-static-png/latest/files/light/moonshot.png"
+      preset:
+        endpoint: "Moonshot"
+        model: "kimi-k2-thinking"
