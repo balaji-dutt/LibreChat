@@ -115,7 +115,7 @@ endpoints:
     - name: "Moonshot"
       apiKey: "${MOONSHOT_API_KEY}"
       baseURL: "https://api.moonshot.ai/v1/"
-      iconURL: "https://registry.npmmirror.com/@lobehub/icons-static-png/latest/files/light/moonshot.png"
+      iconURL: "https://registry.npmmirror.com/@lobehub/icons-static-png/latest/files/dark/moonshot.png"
       # Moonshot works best generating its own titles, so we override the global default here
       titleModel: "moonshot-v1-8k"
       models:
@@ -142,7 +142,7 @@ endpoints:
 # Custom Models
 modelSpecs:
   enforce: false
-  prioritize: false
+  prioritize: true
   addedEndpoints:
     - google
     - openAI
@@ -219,14 +219,14 @@ modelSpecs:
     - name: "deepseek-v3.1"
       label: "Deepseek V3.1 Terminus"
       group: "Quick Access"
-      iconURL: "https://registry.npmmirror.com/@lobehub/icons-static-png/latest/files/light/deepseek.png"
+      iconURL: "https://registry.npmmirror.com/@lobehub/icons-static-png/latest/files/dark/deepseek.png"
       preset:
         endpoint: "OpenRouter"
         model: "deepseek/deepseek-v3.1-terminus:exacto"
     - name: "kimi-k2-thinking"
       label: "Kimi K2 (Thinking)"
       group: "Quick Access"
-      iconURL: "https://registry.npmmirror.com/@lobehub/icons-static-png/latest/files/light/moonshot.png"
+      iconURL: "https://registry.npmmirror.com/@lobehub/icons-static-png/latest/files/dark/moonshot.png"
       preset:
         endpoint: "Moonshot"
         model: "kimi-k2-thinking"
