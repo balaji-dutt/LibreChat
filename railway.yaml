@@ -67,6 +67,7 @@ endpoints:
     titleConvo: true
     titleModel: "gpt-4o-mini" # Cheap, fast, reliable for titles
     titleMethod: "completion" # 'completion' is usually cheaper/faster than 'functions' for simple titles
+    titleEndpoint: "openAI"
 
   # # OpenAI (Primary)
   # openai:
